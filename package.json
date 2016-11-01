@@ -1,0 +1,33 @@
+{
+  "name": "generator-ng2component",
+  "version": "0.0.1",
+  "description": "An angular 2 component generator",
+  "main": "index.js",
+  "files": [
+    "app",
+    "router"
+  ],
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zzs1020/generator-ng2component.git"
+  },
+  "keywords": [
+    "ng2",
+    "angular2",
+    "angular",
+    "component",
+    "yeoman-generator"
+  ],
+  "author": "Steve Zheng",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zzs1020/generator-ng2component/issues"
+  },
+  "homepage": "https://github.com/zzs1020/generator-ng2component#readme",
+  "dependencies": {
+    "yeoman-generator": "^0.24.1"
+  }
+}
