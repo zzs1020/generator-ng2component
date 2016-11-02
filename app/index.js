@@ -57,7 +57,7 @@ module.exports = generators.Base.extend({
             this.destinationPath(this.component_location+'/'+ this.component_name + '/'+ this.component_name +'.component.html')
         );
         this.fs.copyTpl(
-            this.templatePath('template.component.spec.ts'),
+            this.templatePath('template.component.ts'),
             this.destinationPath(this.component_location+'/'+ this.component_name + '/'+ this.component_name +'.component.ts'),
             {folder_name: this.component_name, class_name: this.component_class}
         );
