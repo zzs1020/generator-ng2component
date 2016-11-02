@@ -14,11 +14,12 @@ An angular 2 component generator
     
 4. follow the command line instructions, and your component will be populated in designated folder.
     > normally, it will generate following structure under your project/src/app:
+
     ```
-    --| show-message
+    --| show-message/
         --| show-message.component.ts
         --| show-message.component.spec.ts
-        --| show-message.component.scss/less/css
+        --| show-message.component.scss[less][css]
         --| show-message.component.html
     ```
 
