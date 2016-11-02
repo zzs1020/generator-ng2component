@@ -1,5 +1,5 @@
 # generator-ng2component
-An angular 2 component generator
+An angular 2 component generator (based on new namespace '@angular/core')
 
 **To use the tool, please follow these steps: ( Assuming you have installed node.js)**
 
