@@ -6,7 +6,7 @@ An angular 2 component generator (based on new namespace '@angular/core')
 1. install yeoman
     > npm install -g yeoman
     
-2. install my tool
+2. install my tool (with or without -g)
     > npm install -g generator-ng2component
     
 3. run via yeoman
