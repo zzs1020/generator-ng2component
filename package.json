@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zzs1020/generator-ng2component.git"
+    "url": "git+https://github.com/SteveZheng-BSFT/generator-ng2component.git"
   },
   "keywords": [
     "angular2",
@@ -28,9 +28,9 @@
   "author": "Steve Zheng",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zzs1020/generator-ng2component/issues"
+    "url": "https://github.com/SteveZheng-BSFT/generator-ng2component/issues"
   },
-  "homepage": "https://github.com/zzs1020/generator-ng2component#readme",
+  "homepage": "https://github.com/SteveZheng-BSFT/generator-ng2component#readme",
   "dependencies": {
     "yeoman-generator": "^0.24.1"
   }
