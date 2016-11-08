@@ -40,4 +40,5 @@ Find more generators on yeoman: http://yeoman.io/generators/
 2. add 'generate e2e test' option
     * where do u want to generate
     
-Actively upgrade (every Monday?)! Please often come back and check new version. You're welcome to contribute.
+Actively upgrade (every Monday?)! Please often come back and check new version. You're welcome to contribute. 
+Also, if you think this tool helpful, please watch/star/fork me on github/npmjs and let more people know it!
