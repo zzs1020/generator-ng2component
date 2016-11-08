@@ -13,5 +13,6 @@ export class <%=class_name %> implements OnInit {
     ngOnInit() {
     }
 }
+
 // to make your component work,
 // remember to manually declare this component at your app.module.ts
