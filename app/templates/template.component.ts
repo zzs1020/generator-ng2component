@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: '<%=folder_name %>.component.html',
     styleUrls: ['<%=folder_name %>.component.<%=style_suffix %>']
 })
+
 export class <%=class_name %> implements OnInit {
     constructor() {
     }
@@ -12,3 +13,5 @@ export class <%=class_name %> implements OnInit {
     ngOnInit() {
     }
 }
+// to make your component work,
+// remember to manually declare this component at your app.module.ts

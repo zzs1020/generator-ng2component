@@ -72,5 +72,10 @@ module.exports = generators.Base.extend({
             this.templatePath('template.component.' + this.component_style),
             this.destinationPath(this.component_location+'/'+ this.component_name + '/'+ this.component_name +'.component.'+ this.component_style)
         );
+        this.fs.copyTpl(
+            this.templatePath('index.ts'),
+            this.destinationPath(this.component_location+'/'+ this.component_name + '/index.ts'),
+            {folder_name: this.component_name, class_name: this.component_class}
+        );
     }
 });
