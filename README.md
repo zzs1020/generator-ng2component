@@ -13,12 +13,13 @@ An angular 2 component generator (based on new namespace '@angular/core')
     > yo ng2component
     
 4. follow the command line instructions, and your component will be populated in designated folder.
-    > it will prompt:  
-        - **component name?** default: show-message  
-        - **resides position?** default under: your_project_root/src/app/  
-        - **style sheet?** choose from scss, css, less  
+    > it will prompt:
 
-    > normally, it will generate following structure under your project/src/app:
+    - **component name?** default: show-message  
+    - **resides position?** default under: your_project_root/src/app/  
+    - **style sheet?** choose from scss, css, less  
+
+    > normally, it will generate following (example) structure under your project/src/app:
 
     ```
     --| show-message/
@@ -26,10 +27,15 @@ An angular 2 component generator (based on new namespace '@angular/core')
         --| show-message.component.spec.ts
         --| show-message.component.scss[less][css]
         --| show-message.component.html
+        --| index.ts
     ```
 
 Find more generators on yeoman: http://yeoman.io/generators/
 
-> TODO:  
-    1. add 'generate service' option  
-    2. add test  
+> TODO (some thoughts):  
+
+1. add 'generate service' option  
+    * input 0 at the 'component name' to only generate service
+    * answer 0 or service name to [not]generate service
+2. add 'generate e2e test' option
+    * where do u want to generate
