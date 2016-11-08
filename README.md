@@ -39,3 +39,5 @@ Find more generators on yeoman: http://yeoman.io/generators/
     * answer 0 or service name to [not]generate service
 2. add 'generate e2e test' option
     * where do u want to generate
+    
+Actively upgrade (every Monday?)! Please often come back and check new version. You're welcome to contribute.
