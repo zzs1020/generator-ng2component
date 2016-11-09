@@ -1,3 +1,3 @@
-export class <%=service_name%> {
+export class <%=class_name%> {
 
 }

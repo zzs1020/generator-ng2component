@@ -1,7 +1,7 @@
 {
   "name": "generator-ng2component",
   "version": "0.0.12",
-  "description": "An angular 2 component generator for all platforms based on new namespace '@angular/core' powered by yeoman",
+  "description": "An angular 2 component/service generator for all platforms based on new namespace '@angular/core' powered by yeoman",
   "main": "index.js",
   "files": [
     "app",

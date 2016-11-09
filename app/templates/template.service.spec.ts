@@ -1,13 +1,13 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
-import { <%=service_name%> } from './<%=service_folder_name%>';
-import { <%=service_name%>Service } from './<%=service_folder_name%>.service';
+import { <%=class_name%> } from './<%=folder_name%>';
+import { <%=class_name%>Service } from './<%=folder_name%>.service';
 
-describe('<%=service_name%>ServiceTest', () => {
+describe('<%=class_name%>Service', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                <%=service_name%>Service
+                <%=class_name%>Service
             ],
             imports: [
                 HttpModule
@@ -16,7 +16,7 @@ describe('<%=service_name%>ServiceTest', () => {
 
     });
 
-    it('#<%=service_name%>Service should be defined', inject([<%=service_name%>Service], (service: <%=service_name%>Service) => {
+    it('#<%=class_name%>Service should be defined', inject([<%=class_name%>Service], (service: <%=class_name%>Service) => {
         expect(service).toBeDefined();
     }));
 });
