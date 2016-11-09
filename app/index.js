@@ -8,7 +8,9 @@ module.exports = generators.Base.extend({
     constructor: function () {
         // calling super first
         generators.Base.apply(this, arguments);
-        
+
+        this.log('you are on version 1.0.3');
+
         // this helper help to change show-message to ShowMessageComponent
         this.toClassNameHelper = function(input){
             return _.join(input.split('-').map(function (s) {

@@ -51,6 +51,8 @@ An angular 2 component/service generator (based on new namespace '@angular/core'
 
 Find more generators on yeoman: http://yeoman.io/generators/
 
+---> Check version use: npm view generator-ng2component version  
+
 > TODO (some thoughts):  
 
 1. add 'generate e2e test' option
