@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
-import { <%=class_name%> } from './<%=folder_name%>';
+// import { <%=class_name%> } from './<%=folder_name%>';
 import { <%=class_name%>Service } from './<%=folder_name%>.service';
 
 describe('<%=class_name%>Service', () => {
