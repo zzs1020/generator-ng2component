@@ -22,12 +22,15 @@ An angular 2 component generator (based on new namespace '@angular/core')
     > normally, it will generate following (example) structure under your project/src/app:
 
     ```
-    --| show-message/
-        --| show-message.component.ts
-        --| show-message.component.spec.ts
-        --| show-message.component.scss[less][css]
-        --| show-message.component.html
-        --| index.ts
+    project-root/
+    ├── src/
+    │   └── app/
+    │       └── show-message/
+    │           ├── show-message.component.ts
+    │           ├── show-message.component.spec.ts
+    │           ├── show-message.component.scss[less][css]
+    │           ├── show-message.component.html
+    │           └── index.ts
     ```
 
 Find more generators on yeoman: http://yeoman.io/generators/
