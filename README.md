@@ -5,7 +5,7 @@ An angular 2 component/service generator (based on new namespace '@angular/core'
 **To use the tool, please follow these steps: ( Assuming you have installed node.js)**
 
 1. install yeoman
-    > npm install -g yeoman
+    > npm install -g yo
     
 2. install my tool (with or without -g)
     > npm install -g generator-ng2component
