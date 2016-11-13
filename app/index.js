@@ -10,7 +10,7 @@ module.exports = generators.Base.extend({
         // calling super first
         generators.Base.apply(this, arguments);
 
-        this.log('you are on generator-ng2component version 1.0.3');
+        this.log('you are on generator-ng2component version 1.0.6');
 
         // this helper help to change show-message to ShowMessage
         this.toClassNameHelper = function(input){
