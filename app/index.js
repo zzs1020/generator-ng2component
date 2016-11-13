@@ -4,19 +4,43 @@
 var generators = require('yeoman-generator');
 var _ = require('lodash');
 
+// TODO: auto declare component on module
 module.exports = generators.Base.extend({
     constructor: function () {
         // calling super first
         generators.Base.apply(this, arguments);
 
-        this.log('you are on version 1.0.3');
+        this.log('you are on generator-ng2component version 1.0.3');
 
-        // this helper help to change show-message to ShowMessageComponent
+        // this helper help to change show-message to ShowMessage
         this.toClassNameHelper = function(input){
             return _.join(input.split('-').map(function (s) {
                 return _.upperFirst(s);
             }), '');
         };
+
+        this.findRelativePath = function (put, beput) {
+            var arr = [put, beput];
+            var commonStart = this.findCommonPath(arr);
+            this.log('commonstart:'+commonStart)
+            var needToJump = put.substring(commonStart.length).split('/').length;
+            var relativePath = '';
+            for (var i = 0; i < needToJump; i++) {
+                relativePath += '../';
+            }
+            relativePath += beput.substring(commonStart.length);
+            return relativePath;
+        };
+
+        this.findCommonPath = function(array){
+            var A= array.concat().sort(),
+                a1= A[0], a2= A[A.length-1], L= a1.length, i= 0;
+            while (i<L && a1.charAt(i)=== a2.charAt(i)) i++;
+            while (a1.charAt(i) != '/') i--; // back to slash
+
+            return a1.substring(0, i+1);
+        };
+
 
         // init some variables
         this.generate_opt = ['component'];
@@ -26,20 +50,21 @@ module.exports = generators.Base.extend({
         this.component_style = 'scss';
         this.service_name = 'device';
         this.service_location = 'src/app/shared/services';
-        this.service_class = 'Device'
+        this.service_class = '';
+        this.use_service = false;
     },
     // this function used to interact with user
     prompting: function () {
         return this.prompt([{
             type    : 'checkbox',
             name    : 'generate_opt',
-            message : 'what do u wanna generate?(Multiselect, default only component)',
+            message : 'Wanna generate? (default only component)',
             choices : ['component', 'service'],
             default : this.generate_opt
         }, {
             type    : 'input',
             name    : 'component_name',
-            message : 'component folder name? [use kebab-case]',
+            message : 'Component folder name? [use kebab-case]',
             store   : true,
             default : this.component_name,
             when    : function (answers) {
@@ -48,7 +73,7 @@ module.exports = generators.Base.extend({
         }, {
             type    : 'input',
             name    : 'component_location',
-            message : 'resides position? (under current folder)',
+            message : 'Resides location? (under current folder)',
             store   : true,
             default : this.component_location,
             when    : function (answers) {
@@ -58,14 +83,14 @@ module.exports = generators.Base.extend({
             type    : 'list',
             name    : 'component_style',
             choices : ['scss', 'css', 'less'],
-            message : 'style sheets?',
+            message : 'Style sheets?',
             when    : function (answers) {
                 return answers.generate_opt.indexOf('component') != -1;
             }
         }, {
             type    : 'input',
             name    : 'service_name',
-            message : 'service folder name? [use kebab-case]',
+            message : 'Service folder name? [use kebab-case]',
             store   : true,
             default : this.service_name,
             when    : function (answers) {
@@ -74,11 +99,19 @@ module.exports = generators.Base.extend({
         }, {
             type    : 'input',
             name    : 'service_location',
-            message : 'service resides position? (under current folder)',
+            message : 'Service resides location? (under current folder)',
             store   : true,
             default : this.service_location,
             when    : function (answers) {
                 return answers.generate_opt.indexOf('service') != -1;
+            }
+        }, {
+            type    : 'confirm',
+            name    : 'use_service',
+            message : 'Use service in new component?',
+            default : this.use_service,
+            when    : function (answers) {
+                return answers.generate_opt.indexOf('service') != -1 && answers.generate_opt.indexOf('component') != -1;
             }
         }]).then(function (answers) {
             // change our instance variable
@@ -93,6 +126,7 @@ module.exports = generators.Base.extend({
                 this.service_name = answers.service_name;
                 this.service_location = answers.service_location;
                 this.service_class = this.toClassNameHelper(answers.service_name);
+                this.use_service = answers.use_service;
             }
         }.bind(this));
     },
@@ -104,10 +138,17 @@ module.exports = generators.Base.extend({
                 this.templatePath('template.component.html'),
                 this.destinationPath(this.component_location+'/'+ this.component_name + '/'+ this.component_name +'.component.html')
             );
+            if (this.use_service) {
+                var service_pos = this.findRelativePath(this.destinationPath(this.component_location+'/'+ this.component_name), this.destinationPath(this.service_location+'/'+ this.service_name));
+                var put_service = 'import { '+this.service_class+"Service } from '"+service_pos+"';";
+                var service_instance = _.camelCase(this.service_class)+'Service';
+                var service_class_full = this.service_class+'Service';
+            }
             this.fs.copyTpl(
                 this.templatePath('template.component.ts'),
                 this.destinationPath(this.component_location+'/'+ this.component_name + '/'+ this.component_name +'.component.ts'),
-                {folder_name: this.component_name, class_name: this.component_class, style_suffix: this.component_style}
+                {folder_name: this.component_name, class_name: this.component_class, style_suffix: this.component_style,
+                    put_service: put_service, service_instance: service_instance, service_class_full: service_class_full}
             );
             this.fs.copyTpl(
                 this.templatePath('template.component.spec.ts'),

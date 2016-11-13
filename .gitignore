@@ -6,6 +6,9 @@
 .DS_Store
 npm-debug.log
 
+# my test src
+/src
+
 # User-specific stuff:
 .idea/
 

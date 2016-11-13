@@ -4,8 +4,7 @@
   "description": "An angular 2 component/service generator for all platforms based on new namespace '@angular/core' powered by yeoman",
   "main": "index.js",
   "files": [
-    "app",
-    "router"
+    "app"
   ],
   "scripts": {
     "test": "npm test"
