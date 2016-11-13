@@ -51,8 +51,6 @@ An angular 2 component/service generator (based on new namespace '@angular/core'
 
 Find more generators on yeoman: http://yeoman.io/generators/
 
----> Check version use: npm view generator-ng2component version  
-
 > TODO (some thoughts):  
 
 1. add 'generate e2e test' option
@@ -62,8 +60,12 @@ Actively upgrade (every Monday?)! Please often come back and check new version. 
 Also, if you think this tool helpful, please watch/star/fork me on github/npmjs and let more people know it!
 
 ## developing logs
+> Check current version: npm view generator-ng2component version  
+> Check newest version: npm outdated generator-ng2component  
+> Update your local version: npm install generator-ng2component
+
 **11/12/2016 v1.0.6** generator is capable to import service automatically into component now  
-**11/9/2016 v1.0.3** now you have stable service generator  
+**11/09/2016 v1.0.3** now you have stable service generator  
 **11/8/2016 v0.0.11** fixed ts linting warnings  
-**11/7/2016 v0.0.7** added global colors/fonts ref to scss  
-**11/1/2016 v0.0.5** first stable version, can only generate component
+**11/07/2016 v0.0.7** added global colors/fonts ref to scss  
+**11/01/2016 v0.0.5** first stable version, can only generate component
