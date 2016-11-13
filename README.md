@@ -60,3 +60,10 @@ Find more generators on yeoman: http://yeoman.io/generators/
     
 Actively upgrade (every Monday?)! Please often come back and check new version. You're welcome to contribute. 
 Also, if you think this tool helpful, please watch/star/fork me on github/npmjs and let more people know it!
+
+## developing logs
+**11/12/2016 v1.0.6** generator is capable to import service automatically into component now  
+**11/9/2016 v1.0.3** now you have stable service generator  
+**11/8/2016 v0.0.11** fixed ts linting warnings  
+**11/7/2016 v0.0.7** added global colors/fonts ref to scss  
+**11/1/2016 v0.0.5** first stable version, can only generate component

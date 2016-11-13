@@ -10,7 +10,8 @@ module.exports = generators.Base.extend({
         // calling super first
         generators.Base.apply(this, arguments);
 
-        this.log('you are on generator-ng2component version 1.0.6');
+        // must pass in an absolute path so use templatePath
+        this.log('Current generator-ng2component VERSION: '+this.fs.readJSON(this.templatePath('../../package.json'), 'no_file_error').version);
 
         // this helper help to change show-message to ShowMessage
         this.toClassNameHelper = function(input){
@@ -22,7 +23,6 @@ module.exports = generators.Base.extend({
         this.findRelativePath = function (put, beput) {
             var arr = [put, beput];
             var commonStart = this.findCommonPath(arr);
-            this.log('commonstart:'+commonStart)
             var needToJump = put.substring(commonStart.length).split('/').length;
             var relativePath = '';
             for (var i = 0; i < needToJump; i++) {
@@ -188,7 +188,7 @@ module.exports = generators.Base.extend({
                 this.destinationPath(this.service_location+'/'+ this.service_name + '/index.ts'),
                 {folder_name: this.service_name, suffix: 'service'}
             );
-            this.log('Service Created!')
+            this.log('Service Created!');
         }
     }
 });
