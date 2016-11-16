@@ -1,8 +1,4 @@
-// should have global color & font set up in /src/style/global-vars/
-// then add watching config property 'includePaths: [./src/style/global-vars]'
-// to your webpack or gulp or command line so you can import following way
-// http://stackoverflow.com/questions/6502313/sass-import-a-file-from-a-different-directory
-@import "colors";
-@import "typography";
+// should have global color & font set up
+@import "standards";
 
 // component scss goes here
