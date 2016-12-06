@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';<%if(put_service != null){%>
 
 @Component({
     selector: 'my-<%=folder_name %>',
-    templateUrl: '<%=folder_name %>.component.html',
-    styleUrls: ['<%=folder_name %>.component.<%=style_suffix %>']<%if(put_service != null){%>,<%}%><%if(put_service != null){%>
+    templateUrl: './<%=folder_name %>.component.html',
+    styleUrls: ['./<%=folder_name %>.component.<%=style_suffix %>']<%if(put_service != null){%>,<%}%><%if(put_service != null){%>
     providers: [ <%=service_class_full %> ]<%}%>
 })
 export class <%=class_name %> implements OnInit {
