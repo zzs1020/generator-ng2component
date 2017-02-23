@@ -52,19 +52,21 @@ module.exports = generators.Base.extend({
         this.service_location = 'src/app/shared/services';
         this.service_class = '';
         this.use_service = false;
+        this.omit_index = false;
     },
     // this function used to interact with user
     prompting: function () {
         return this.prompt([{
             type    : 'checkbox',
             name    : 'generate_opt',
-            message : 'Wanna generate? (default only component)',
+            message : 'Generate a cmp/service?',
             choices : ['component', 'service'],
-            default : this.generate_opt
+            default : this.generate_opt,
+            store   : true
         }, {
             type    : 'input',
             name    : 'component_name',
-            message : 'Component folder name? [use kebab-case]',
+            message : 'Name for this Component & its Folder? [Use kebab-case; Folder & cmp shares the same name]',
             store   : true,
             default : this.component_name,
             when    : function (answers) {
@@ -73,7 +75,7 @@ module.exports = generators.Base.extend({
         }, {
             type    : 'input',
             name    : 'component_location',
-            message : 'Resides location? (under current folder)',
+            message : 'Resides location? [Enter \'.\' for current, or type full path beneath current directory]',
             store   : true,
             default : this.component_location,
             when    : function (answers) {
@@ -84,13 +86,15 @@ module.exports = generators.Base.extend({
             name    : 'component_style',
             choices : ['scss', 'css', 'less'],
             message : 'Style sheets?',
+            default : this.component_style,
+            store   : true,
             when    : function (answers) {
                 return answers.generate_opt.indexOf('component') != -1;
             }
         }, {
             type    : 'input',
             name    : 'service_name',
-            message : 'Service folder name? [use kebab-case]',
+            message : 'Name for this Service & its Folder? [Use kebab-case; Folder & service shares the same name]',
             store   : true,
             default : this.service_name,
             when    : function (answers) {
@@ -99,7 +103,7 @@ module.exports = generators.Base.extend({
         }, {
             type    : 'input',
             name    : 'service_location',
-            message : 'Service resides location? (under current folder)',
+            message : 'Resides location? [Enter \'.\' for current, or type full path beneath current directory]',
             store   : true,
             default : this.service_location,
             when    : function (answers) {
@@ -110,12 +114,20 @@ module.exports = generators.Base.extend({
             name    : 'use_service',
             message : 'Use service in new component?',
             default : this.use_service,
+            store   : true,
             when    : function (answers) {
                 return answers.generate_opt.indexOf('service') != -1 && answers.generate_opt.indexOf('component') != -1;
             }
+        }, {
+            type    : 'confirm',
+            name    : 'omit_index',
+            message : 'Omit all index.ts?',
+            default : this.omit_index,
+            store   : true
         }]).then(function (answers) {
             // change our instance variable
             this.generate_opt = answers.generate_opt;
+            this.omit_index = answers.omit_index;
             if (this.generate_opt.indexOf('component') != -1) {
                 this.component_name = answers.component_name;
                 this.component_location = answers.component_location;
@@ -159,11 +171,13 @@ module.exports = generators.Base.extend({
                 this.templatePath('template.component.' + this.component_style),
                 this.destinationPath(this.component_location+'/'+ this.component_name + '/'+ this.component_name +'.component.'+ this.component_style)
             );
-            this.fs.copyTpl(
-                this.templatePath('index.ts'),
-                this.destinationPath(this.component_location+'/'+ this.component_name + '/index.ts'),
-                {folder_name: this.component_name, suffix: 'component'}
-            );
+            if (!this.omit_index) {
+                this.fs.copyTpl(
+                    this.templatePath('index.ts'),
+                    this.destinationPath(this.component_location+'/'+ this.component_name + '/index.ts'),
+                    {folder_name: this.component_name, suffix: 'component'}
+                );
+            }
 
             this.log('Component Created!');
         }
@@ -183,11 +197,14 @@ module.exports = generators.Base.extend({
                 this.destinationPath(this.service_location+'/'+ this.service_name + '/'+ this.service_name +'.ts'),
                 {class_name: this.service_class}
             );
-            this.fs.copyTpl(
-                this.templatePath('index.ts'),
-                this.destinationPath(this.service_location+'/'+ this.service_name + '/index.ts'),
-                {folder_name: this.service_name, suffix: 'service'}
-            );
+            if (!this.omit_index) {
+                this.fs.copyTpl(
+                    this.templatePath('index.ts'),
+                    this.destinationPath(this.service_location+'/'+ this.service_name + '/index.ts'),
+                    {folder_name: this.service_name, suffix: 'service'}
+                );
+            }
+
             this.log('Service Created!');
         }
     }
