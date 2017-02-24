@@ -190,34 +190,39 @@ module.exports = generators.Base.extend({
                 cmpImport += "';\n";
             }
             var cmpDeclare = '\n\t\t' + this.component_class + ',';
-            fs.open(module_path, 'r+', function (err, fd) {
+            fs.open(module_path, 'w+', function (err, fd) {
                 if (err) {
-                    throw err; // todo not finding module then create one
+                    throw err;
                 } else {
                     fs.stat(module_path, function (err, stats) {
                         if (err) throw err;
                         var buffer = Buffer.allocUnsafe(stats.size);
                         fs.read(fd, buffer, 0, buffer.length, null, function (err, bytesRead, buffer) {
                             if (err) throw err;
-                            var writeBack = cmpImport + buffer.toString('utf8', 0, buffer.length);
-                            var writeBackArr = writeBack.split('');
 
-                            var declarationsPos = writeBack.indexOf("declarations:");
-                            var insertPos;
-                            if (declarationsPos > -1) { // if already have declarations field
-                                insertPos = writeBack.indexOf('[', declarationsPos) + 1;
-                                writeBackArr.splice(insertPos, 0, cmpDeclare); // splice will return the thing being removed
-                                writeBack = writeBackArr.join('');
-                            } else { // no declarations field, then create one
-                                insertPos = writeBack.indexOf('@NgModule({') + 11;
-                                writeBackArr.splice(insertPos, 0, '\n\tdeclarations: [' + cmpDeclare + '\n\t],'); // splice will return the thing being removed
-                                writeBack = writeBackArr.join('');
+                            if (buffer.length === 0) { // if not find app.module then create one with
+
+                            } else {
+                                var writeBack = cmpImport + buffer.toString('utf8', 0, buffer.length);
+                                var writeBackArr = writeBack.split('');
+
+                                var declarationsPos = writeBack.indexOf("declarations:");
+                                var insertPos;
+                                if (declarationsPos > -1) { // if already have declarations field
+                                    insertPos = writeBack.indexOf('[', declarationsPos) + 1;
+                                    writeBackArr.splice(insertPos, 0, cmpDeclare); // splice will return the thing being removed
+                                    writeBack = writeBackArr.join('');
+                                } else { // no declarations field, then create one
+                                    insertPos = writeBack.indexOf('@NgModule({') + 11;
+                                    writeBackArr.splice(insertPos, 0, '\n\tdeclarations: [' + cmpDeclare + '\n\t],'); // splice will return the thing being removed
+                                    writeBack = writeBackArr.join('');
+                                }
+
+                                fs.write(fd, writeBack, 0, writeBack.length, function(err) {
+                                    if (err) throw err;
+                                });
+
                             }
-
-                            fs.write(fd, writeBack, 0, writeBack.length, function(err) {
-                                if (err) throw err;
-                            });
-
                             fs.close(fd);
                         })
                     })

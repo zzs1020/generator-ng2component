@@ -9,7 +9,7 @@
     3. auto declare component in your current app.module.ts file; (there is a plan for more complex module declarations)    
     4. you decide if you want to use index.ts file    
 
-###Steps: ( Assuming you have installed node.js [tested against node v6.9.1])**
+###Steps: ( Assuming you have installed node.js [tested against node v6.9.1])
 
 1. install yeoman (you may need 'sudo' for permission)
     > npm install -g yo
