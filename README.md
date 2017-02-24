@@ -1,20 +1,21 @@
+![angular](https://dynamicimageses-v2b.netdna-ssl.com/product_class_external_product/angular_js_2_128_n.png)+ ![ts](http://www.typescriptlang.org/assets/images/icons/nuget-icon-128x128.png) +![yo](https://pbs.twimg.com/profile_images/3786155988/46ea2dd8b1bdd31a8ba61044cb5b6ebe_reasonably_small.png)
 # generator-ng2component
-**An angular 2 component/service generator (based on new namespace '@angular/core') that can generate templates for all kinds of angular2 projects.**    
+###An angular 2 component/service generator(based on angular official release) that can generate templates for all kinds of angular 2 projects.  
 
-**VERSION 1.1.0**   
-current features:    
+###VERSION 1.1.0  
+> current features:    
     1. create a component with full standard structure (check example tree below);   
     2. create a service with full standard structure;    
-    3. auto declare component in your current app.module.ts file; (there is a plan for improving to declaring in specific module)    
+    3. auto declare component in your current app.module.ts file; (there is a plan for more complex module declarations)    
     4. you decide if you want to use index.ts file    
 
->**Steps: ( Assuming you have installed node.js [tested against node v6.9.1])**
+###Steps: ( Assuming you have installed node.js [tested against node v6.9.1])**
 
 1. install yeoman (you may need 'sudo' for permission)
     > npm install -g yo
     
 2. install this tool
-    > globally (may need sudo to install globally): npm install -g generator-ng2component   
+    > globally (may need sudo): npm install -g generator-ng2component   
     
     > or just to local project: npm install --save-dev generator-ng2component
     
@@ -22,11 +23,9 @@ current features:
     > yo ng2component
     
 4. follow the command line instructions, and your component will be populated in designated directory.
-    > it will prompt questions based on your **1st choice**:
-
-    - **what do u wanna generate?**  
+    - **what do u want to generate?**  
         you can generate either component or service or both! default only component
-        - **component name?**  
+        - **Name for this Component & its Folder?**  
             default: show-message  
             (notice: generator will declare this component for u only if u have src/app/app.module.ts)
         - **resides position?**  
@@ -64,15 +63,14 @@ current features:
 
 Find more generators on yeoman: http://yeoman.io/generators/
 
-> TODO (some thoughts):  
-
-1. add 'generate e2e test' option
-    * where do u want to generate
+### TODO (some thoughts):  
+1. **add 'generate pipe/directive/module/class/interface/e2e test' option**
+2. **auto declare component in current module**
     
 You're welcome to contribute (open issues, PRs)!
 Also, if you think this tool is helpful, please watch/star/fork me on github/npmjs and let more people know it!
 
-## developing logs
+### developing logs
 > Check current version: npm view generator-ng2component version  
 > Check newest version: npm outdated generator-ng2component  
 > Update your local version: npm install generator-ng2component
