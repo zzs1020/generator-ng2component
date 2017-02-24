@@ -2,7 +2,7 @@
 # generator-ng2component
 ###An angular 2 component/service generator(based on angular official release) that can generate templates for all kinds of angular 2 projects.  
 
-###VERSION 1.1.0  
+###VERSION 1.1.1  
 > current features:    
     1. create a component with full standard structure (check example tree below);   
     2. create a service with full standard structure;    
@@ -76,7 +76,7 @@ Also, if you think this tool is helpful, please watch/star/fork me on github/npm
 > Update your local version: npm install generator-ng2component
 > big changes happened on following versions. Feel free to use older version if you think current version contains issues.
 
-**02/28/2017 v1.1.0** generator can declare component automatically for your app.module.ts now  
+**02/28/2017 v1.1.1** generator can declare component automatically for your app.module.ts now  
 **02/22/2017 v1.0.9** capable to omit generating index.ts now  
 **11/12/2016 v1.0.6** generator is capable to import service automatically into component now  
 **11/09/2016 v1.0.3** now you have stable service generator  

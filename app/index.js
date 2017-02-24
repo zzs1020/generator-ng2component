@@ -181,7 +181,7 @@ module.exports = generators.Base.extend({
             }
 
             // starting read app.module.ts
-            var module_path = 'src/app/app.module.ts';
+            var module_path = this.component_location + '/app.module.ts';
             // set component path ref, if use index.ts then it's enough to import until folder name
             var cmpImport = "import { " + this.component_class + " } from './" + this.component_name;
             if (this.omit_index) {
@@ -190,7 +190,7 @@ module.exports = generators.Base.extend({
                 cmpImport += "';\n";
             }
             var cmpDeclare = '\n\t\t' + this.component_class + ',';
-            fs.open(module_path, 'w+', function (err, fd) {
+            fs.open(module_path, 'r+', function (err, fd) {
                 if (err) {
                     throw err;
                 } else {
