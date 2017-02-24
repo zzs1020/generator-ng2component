@@ -15,5 +15,4 @@ export class <%=class_name %> implements OnInit {
     }
 }
 
-// to make your component work,
-// remember to manually declare this component at your app.module.ts
+// if you don't have src/app/app.module.ts set up, then you may declare this component manually to make it works
