@@ -1,4 +1,6 @@
-![angular](https://dynamicimageses-v2b.netdna-ssl.com/product_class_external_product/angular_js_2_128_n.png)+ ![ts](http://www.typescriptlang.org/assets/images/icons/nuget-icon-128x128.png) +![yo](https://pbs.twimg.com/profile_images/3786155988/46ea2dd8b1bdd31a8ba61044cb5b6ebe_reasonably_small.png)
+![angular](https://dynamicimageses-v2b.netdna-ssl.com/product_class_external_product/angular_js_2_128_n.png)+ 
+![ts](http://www.typescriptlang.org/assets/images/icons/nuget-icon-128x128.png) +
+![yo](https://pbs.twimg.com/profile_images/3786155988/46ea2dd8b1bdd31a8ba61044cb5b6ebe_reasonably_small.png)    
 # generator-ng2component
 ###An angular 2 component/service generator(based on angular official release) that can generate templates for all kinds of angular 2 projects.  
 
