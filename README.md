@@ -2,7 +2,7 @@
 # generator-ng2component
 ###An angular 2 component/service generator(based on angular official release) that can generate templates for all kinds of angular 2 projects.  
 
-###VERSION 1.1.1  
+###VERSION 1.1.2  
 > current features:    
     1. create a component with full standard structure (check example tree below);   
     2. create a service with full standard structure;    
