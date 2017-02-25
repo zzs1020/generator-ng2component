@@ -4,6 +4,7 @@
 # generator-ng2component
 ###An angular 2 component/service generator(based on angular official release) that can generate templates for all kinds of angular 2 projects.  
 
+find in npm: https://www.npmjs.com/package/generator-ng2component
 ###VERSION 1.1.2  
 > current features:    
     1. create a component with full standard structure (check example tree below);   
