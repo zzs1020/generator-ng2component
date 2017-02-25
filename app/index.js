@@ -42,6 +42,24 @@ module.exports = generators.Base.extend({
             return a1.substring(0, i+1);
         };
 
+        this.addDeep = function (path, name, omitIndex) {
+            // set component path ref, if use index.ts then it's enough to import until folder name
+            if (omitIndex) {
+                path += '/' + name + ".component";
+            }
+            return path;
+        };
+
+        this.findCmpPath = function (modulePath, cmpPath, cmpName, omitIndex) {
+            if (modulePath === cmpPath) {
+                return this.addDeep('./'+cmpName, cmpName, omitIndex)
+            } else {
+                var commonStart = this.findCommonPath([modulePath, cmpPath]);
+                var notCommonIncludingPartCommon = cmpPath.substring(commonStart.length);
+                var relativePath = './' + notCommonIncludingPartCommon.substring(notCommonIncludingPartCommon.indexOf('/')+1) + '/' + cmpName;
+                return this.addDeep(relativePath, cmpName, omitIndex);
+            }
+        };
 
         // init some variables
         this.generate_opt = ['component'];
@@ -54,6 +72,7 @@ module.exports = generators.Base.extend({
         this.service_class = '';
         this.use_service = false;
         this.omit_index = false;
+        this.module_path = 'src/app'
     },
     // this function used to interact with user
     prompting: function () {
@@ -67,7 +86,7 @@ module.exports = generators.Base.extend({
         }, {
             type    : 'input',
             name    : 'component_name',
-            message : 'Name for this Component & its Folder? [Use kebab-case; Folder & cmp shares the same name]',
+            message : 'Name for this Component & its Folder?\n[Use kebab-case; Folder & cmp shares the same name]',
             store   : true,
             default : this.component_name,
             when    : function (answers) {
@@ -76,7 +95,7 @@ module.exports = generators.Base.extend({
         }, {
             type    : 'input',
             name    : 'component_location',
-            message : 'Resides location? [Enter \'.\' for current, or type full path beneath current directory]',
+            message : 'Resides location? \n[Enter \'.\' for current, or type full path beneath current directory]',
             store   : true,
             default : this.component_location,
             when    : function (answers) {
@@ -94,8 +113,17 @@ module.exports = generators.Base.extend({
             }
         }, {
             type    : 'input',
+            name    : 'module_path',
+            message : 'Enter the path to the directory where ur module is located:\n[don\'t add a trailing slash; type = use cmp\'s location]',
+            default : this.module_path,
+            store   : true,
+            when    : function (answers) {
+                return answers.generate_opt.indexOf('component') != -1;
+            }
+        }, {
+            type    : 'input',
             name    : 'service_name',
-            message : 'Name for this Service & its Folder? [Use kebab-case; Folder & service shares the same name]',
+            message : 'Name for this Service & its Folder?\n[Use kebab-case; Folder & service shares the same name]',
             store   : true,
             default : this.service_name,
             when    : function (answers) {
@@ -104,7 +132,7 @@ module.exports = generators.Base.extend({
         }, {
             type    : 'input',
             name    : 'service_location',
-            message : 'Resides location? [Enter \'.\' for current, or type full path beneath current directory]',
+            message : 'Resides location?\n[Enter \'.\' for current, or type full path beneath current directory]',
             store   : true,
             default : this.service_location,
             when    : function (answers) {
@@ -134,6 +162,8 @@ module.exports = generators.Base.extend({
                 this.component_location = answers.component_location;
                 this.component_class = this.toClassNameHelper(answers.component_name)+'Component';
                 this.component_style = answers.component_style;
+                this.module_path = answers.module_path;
+                if (answers.module_path === '=') this.module_path = this.component_location;
             }
             if (this.generate_opt.indexOf('service') != -1) {
                 this.service_name = answers.service_name;
@@ -181,15 +211,12 @@ module.exports = generators.Base.extend({
             }
 
             // starting read app.module.ts
-            var module_path = this.component_location + '/app.module.ts';
-            // set component path ref, if use index.ts then it's enough to import until folder name
-            var cmpImport = "import { " + this.component_class + " } from './" + this.component_name;
-            if (this.omit_index) {
-                cmpImport += '/' + this.component_name + ".component';\n";
-            } else {
-                cmpImport += "';\n";
-            }
+            var relativePath = this.findCmpPath(this.module_path, this.component_location, this.component_name, this.omit_index);
+            var cmpImport = "import { " + this.component_class + " } from '" + relativePath + "';\n";
+
             var cmpDeclare = '\n\t\t' + this.component_class + ',';
+
+            var module_path = this.module_path + "/" + this.module_path.substring(this.module_path.lastIndexOf('/')) + '.module.ts';
             fs.open(module_path, 'r+', function (err, fd) {
                 if (err) {
                     throw err;

@@ -6,7 +6,7 @@
 > current features:    
     1. create a component with full standard structure (check example tree below);   
     2. create a service with full standard structure;    
-    3. auto declare component in your current app.module.ts file; (there is a plan for more complex module declarations)    
+    3. auto declare component in your current .module.ts file;       
     4. you decide if you want to use index.ts file    
 
 ###Steps: ( Assuming you have installed node.js [tested against node v6.9.1])
@@ -27,11 +27,14 @@
         you can generate either component or service or both! default only component
         - **Name for this Component & its Folder?**  
             default: show-message  
-            (notice: generator will declare this component for u only if u have src/app/app.module.ts)
+            [notice: generator will declare this component for u only if u have corresponding .module.ts]
         - **resides position?**  
-            default under: your_project_root/src/app/, enter '.' will generate in current folder    
+            default under: your_project_root/src/app, enter '.' will generate in current folder    
         - **style sheet?**  
             choose from scss, css, less  
+        - **where is your module?**     
+            default: src/app; (type = use component's location)   
+            [assuming your module's folder name is the same with module's name, above example will find src/**app**/**app**.module.ts, also AVOID TYPING TRAILING SLASH at the end]
         - **service name?**  
             default: device  
         - **service resides position?**  
@@ -46,13 +49,14 @@
     ```
     project-root/
     ├── src/
-    │   └── app/
+    │   └── some-module-name/
     │       ├── show-message/
     │       │    ├── show-message.component.ts
     │       │    ├── show-message.component.spec.ts
     │       │    ├── show-message.component.scss[less][css]
     │       │    ├── show-message.component.html
     │       │    └── index.ts
+    │       ├── some-module-name.module.ts (auto declare)
     │       └── shared/
     │            └── device/
     │                ├── device.service.ts
@@ -65,7 +69,6 @@ Find more generators on yeoman: http://yeoman.io/generators/
 
 ### TODO (some thoughts):  
 1. **add 'generate pipe/directive/module/class/interface/e2e test' option**
-2. **auto declare component in current module**
     
 You're welcome to contribute (open issues, PRs)!
 Also, if you think this tool is helpful, please watch/star/fork me on github/npmjs and let more people know it!
@@ -76,7 +79,8 @@ Also, if you think this tool is helpful, please watch/star/fork me on github/npm
 > Update your local version: npm install generator-ng2component
 > big changes happened on following versions. Feel free to use older version if you think current version contains issues.
 
-**02/28/2017 v1.1.1** generator can declare component automatically for your app.module.ts now  
+**02/25/2017 v1.1.2** generator can declare component automatically in your .module.ts now  
+**02/24/2017 v1.1.1** generator can declare component automatically for your app.module.ts now  
 **02/22/2017 v1.0.9** capable to omit generating index.ts now  
 **11/12/2016 v1.0.6** generator is capable to import service automatically into component now  
 **11/09/2016 v1.0.3** now you have stable service generator  
