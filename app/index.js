@@ -114,7 +114,7 @@ module.exports = generators.Base.extend({
         }, {
             type    : 'input',
             name    : 'module_path',
-            message : 'Enter the path to the directory where ur module is located:\n[don\'t add a trailing slash; type = use cmp\'s location]',
+            message : 'Enter the path to the directory where ur module is located:\n[don\'t add a trailing slash; type = use cmp\'s location, type - do not declare]',
             default : this.module_path,
             store   : true,
             when    : function (answers) {
@@ -210,53 +210,53 @@ module.exports = generators.Base.extend({
                 );
             }
 
-            // starting read app.module.ts
-            var relativePath = this.findCmpPath(this.module_path, this.component_location, this.component_name, this.omit_index);
-            var cmpImport = "import { " + this.component_class + " } from '" + relativePath + "';\n";
+            if (this.module_path !== '-') {
+                // starting read app.module.ts
+                var relativePath = this.findCmpPath(this.module_path, this.component_location, this.component_name, this.omit_index);
+                var cmpImport = "import { " + this.component_class + " } from '" + relativePath + "';\n";
 
-            var cmpDeclare = '\n\t\t' + this.component_class + ',';
+                var cmpDeclare = '\n\t\t' + this.component_class + ',';
 
-            var module_path = this.module_path + "/" + this.module_path.substring(this.module_path.lastIndexOf('/')) + '.module.ts';
-            fs.open(module_path, 'r+', function (err, fd) {
-                if (err) {
-                    throw err;
-                } else {
-                    fs.stat(module_path, function (err, stats) {
-                        if (err) throw err;
-                        var buffer = Buffer.allocUnsafe(stats.size);
-                        fs.read(fd, buffer, 0, buffer.length, null, function (err, bytesRead, buffer) {
+                var module_path = this.module_path + "/" + this.module_path.substring(this.module_path.lastIndexOf('/')) + '.module.ts';
+                fs.open(module_path, 'r+', function (err, fd) {
+                    if (err) {
+                        throw err;
+                    } else {
+                        fs.stat(module_path, function (err, stats) {
                             if (err) throw err;
+                            var buffer = Buffer.allocUnsafe(stats.size);
+                            fs.read(fd, buffer, 0, buffer.length, null, function (err, bytesRead, buffer) {
+                                if (err) throw err;
 
-                            if (buffer.length === 0) { // if not find app.module then create one with
+                                if (buffer.length === 0) { // if not find app.module then create one with
 
-                            } else {
-                                var writeBack = cmpImport + buffer.toString('utf8', 0, buffer.length);
-                                var writeBackArr = writeBack.split('');
+                                } else {
+                                    var writeBack = cmpImport + buffer.toString('utf8', 0, buffer.length);
+                                    var writeBackArr = writeBack.split('');
 
-                                var declarationsPos = writeBack.indexOf("declarations:");
-                                var insertPos;
-                                if (declarationsPos > -1) { // if already have declarations field
-                                    insertPos = writeBack.indexOf('[', declarationsPos) + 1;
-                                    writeBackArr.splice(insertPos, 0, cmpDeclare); // splice will return the thing being removed
-                                    writeBack = writeBackArr.join('');
-                                } else { // no declarations field, then create one
-                                    insertPos = writeBack.indexOf('@NgModule({') + 11;
-                                    writeBackArr.splice(insertPos, 0, '\n\tdeclarations: [' + cmpDeclare + '\n\t],'); // splice will return the thing being removed
-                                    writeBack = writeBackArr.join('');
+                                    var declarationsPos = writeBack.indexOf("declarations:");
+                                    var insertPos;
+                                    if (declarationsPos > -1) { // if already have declarations field
+                                        insertPos = writeBack.indexOf('[', declarationsPos) + 1;
+                                        writeBackArr.splice(insertPos, 0, cmpDeclare); // splice will return the thing being removed
+                                        writeBack = writeBackArr.join('');
+                                    } else { // no declarations field, then create one
+                                        insertPos = writeBack.indexOf('@NgModule({') + 11;
+                                        writeBackArr.splice(insertPos, 0, '\n\tdeclarations: [' + cmpDeclare + '\n\t],'); // splice will return the thing being removed
+                                        writeBack = writeBackArr.join('');
+                                    }
+
+                                    fs.write(fd, writeBack, 0, writeBack.length, function(err) {
+                                        if (err) throw err;
+                                    });
+
                                 }
-
-                                fs.write(fd, writeBack, 0, writeBack.length, function(err) {
-                                    if (err) throw err;
-                                });
-
-                            }
-                            fs.close(fd);
+                                fs.close(fd);
+                            })
                         })
-                    })
-                }
-            })
-
-
+                    }
+                })
+            }
         }
         if (this.generate_opt.indexOf('service') != -1) {
             this.fs.copyTpl(

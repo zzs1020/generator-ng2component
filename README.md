@@ -5,11 +5,11 @@
 ###An angular 2 component/service generator(based on angular official release) that can generate templates for all kinds of angular 2 projects.  
 
 find in npm: https://www.npmjs.com/package/generator-ng2component
-###VERSION 1.1.2  
+###VERSION 1.1.3  
 > current features:    
     1. create a component with full standard structure (check example tree below);   
     2. create a service with full standard structure;    
-    3. auto declare component in your current .module.ts file;       
+    3. auto declare component in your current .module.ts file, or don't declare;       
     4. you decide if you want to use index.ts file    
 
 ###Steps: ( Assuming you have installed node.js [tested against node v6.9.1])
@@ -36,7 +36,7 @@ find in npm: https://www.npmjs.com/package/generator-ng2component
         - **style sheet?**  
             choose from scss, css, less  
         - **where is your module?**     
-            default: src/app; (type = use component's location)   
+            default: src/app; (type = use component's location, type - do not declare)   
             [assuming your module's folder name is the same with module's name, above example will find src/**app**/**app**.module.ts, also AVOID TYPING TRAILING SLASH at the end]
         - **service name?**  
             default: device  
