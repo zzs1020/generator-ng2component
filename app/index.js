@@ -8,10 +8,10 @@ var fs = require('fs');
 
 module.exports = generators.Base.extend({
     constructor: function () {
-        // calling super first
+        // calling super generator first
         generators.Base.apply(this, arguments);
 
-        // must pass in an absolute path so use templatePath
+        // must pass in an absolute path, so use templatePath to transfer it
         this.log('Current generator-ng2component VERSION: '+this.fs.readJSON(this.templatePath('../../package.json'), 'no_file_error').version);
 
         // this helper help to change show-message to ShowMessage
@@ -21,9 +21,45 @@ module.exports = generators.Base.extend({
             }), '');
         };
 
+        // change /src/app/ to src/app
+        this.removeHeadAndTrailSlashes = function(arr) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i][0] === '/') {
+                    arr[i] = arr[i].substring(1, arr[i].length);
+                }
+                if (arr[i][arr[i].length-1] === '/') {
+                    arr[i] = arr[i].substring(0, arr[i].length-1);
+                }
+            }
+            return arr;
+        };
+
+        // src/app/device and src/app 's common path is src/app
+        this.findCommonPath = function(first, second){
+            paths = removeHeadAndTrailSlashes([first, second]);
+            first = paths[0];
+            second = paths[1];
+            // choose short length to loop
+            var i; // count
+            var result = [];
+
+            var firstArr = first.split('/');
+            var secondArr = second.split('/');
+            var len = firstArr.length <= secondArr.length ? firstArr.length : secondArr.length;
+            for (i = 0; i < len; i++) {
+                if (firstArr[i] !== secondArr[i]) {
+                    break;
+                }
+                result.push(firstArr[i]);
+            }
+
+            return result.join('/');
+        };
+
+        // put service in cmp, cmp's path is 'put', service's path is 'beput'
         this.findRelativePath = function (put, beput) {
             var arr = [put, beput];
-            var commonStart = this.findCommonPath(arr);
+            var commonStart = this.findCommonPath(put, beput);
             var needToJump = put.substring(commonStart.length).split('/').length;
             var relativePath = '';
             for (var i = 0; i < needToJump; i++) {
@@ -31,15 +67,6 @@ module.exports = generators.Base.extend({
             }
             relativePath += beput.substring(commonStart.length);
             return relativePath;
-        };
-
-        this.findCommonPath = function(array){
-            var A= array.concat().sort(),
-                a1= A[0], a2= A[A.length-1], L= a1.length, i= 0;
-            while (i<L && a1.charAt(i)=== a2.charAt(i)) i++;
-            while (a1.charAt(i) != '/') i--; // back to slash
-
-            return a1.substring(0, i+1);
         };
 
         this.addDeep = function (path, name, omitIndex) {
@@ -54,7 +81,7 @@ module.exports = generators.Base.extend({
             if (modulePath === cmpPath) {
                 return this.addDeep('./'+cmpName, cmpName, omitIndex)
             } else {
-                var commonStart = this.findCommonPath([modulePath, cmpPath]);
+                var commonStart = this.findCommonPath(modulePath, cmpPath);
                 var notCommonIncludingPartCommon = cmpPath.substring(commonStart.length);
                 var relativePath = './' + notCommonIncludingPartCommon.substring(notCommonIncludingPartCommon.indexOf('/')+1) + '/' + cmpName;
                 return this.addDeep(relativePath, cmpName, omitIndex);
