@@ -9,10 +9,10 @@ describe('<%= class_name %>', () => {
     });
 
     describe('method ', () => {
-        it('should ', () => {
+        xit('should ', () => {
         });
     });
 
-    it('should ', () => {
+    xit('should ', () => {
     });
 });

@@ -16,7 +16,7 @@ describe('<%=class_name%>Service', () => {
 
     });
 
-    it('#<%=class_name%>Service should be defined', inject([<%=class_name%>Service], (service: <%=class_name%>Service) => {
+    xit('#<%=class_name%>Service should be defined', inject([<%=class_name%>Service], (service: <%=class_name%>Service) => {
         expect(service).toBeDefined();
     }));
 });
